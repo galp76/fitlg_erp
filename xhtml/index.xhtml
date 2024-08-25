@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Main index</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f8ff;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .separator {
+      height: 70px;
+    }
+
+    button {
+      width: 400px;
+      height: 200px;
+      font-size: 45px;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div>
+        <button onclick="products()">Productos</button>
+    </div>
+    <div class="separator"></div>
+    <div>
+        <button onclick="purchases()">Compras</button>
+    </div>
+    <div class="separator"></div>
+    <div>
+        <button onclick="sales()">Ventas</button>
+    </div>
+    <div class="separator"></div>
+    <div>
+        <button onclick="vendors()">Proveedores</button>
+    </div>
+  </div>
+  <script>
+    function products() {
+
+	// Construir el URL con el contador como parametro
+	const url = `products`;
+	
+	window.location.href = url;
+    }
+
+    function purchases() {
+
+	// Construir el URL con el contador como parametro
+	const url = `purchases`;
+	
+	window.location.href = url;
+    }
+
+    function sales() {
+
+	// Construir el URL con el contador como parametro
+	const url = `sales`;
+	
+	window.location.href = url;
+    }
+
+    function vendors() {
+
+	// Construir el URL con el contador como parametro
+	const url = `vendors`;
+	
+	window.location.href = url;
+    }
+  </script>
+</body>
+</html>
+
