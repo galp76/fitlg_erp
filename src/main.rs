@@ -31,8 +31,37 @@ fn process(password: &str) -> rocket::response::Redirect {
     }
 }
 
+#[get("/products")]
+fn products() -> rocket::response::content::RawHtml<String> {
+    unsafe {
+        if VALIDATED == true {
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/products.xhtml").unwrap())
+        } else {
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/auth.xhtml").unwrap())
+        }
+    }
+}
+
+#[get("/new_product")]
+fn new_product() -> rocket::response::content::RawHtml<String> {
+    unsafe {
+        if VALIDATED == true {
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/new_product.xhtml").unwrap())
+        } else {
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/auth.xhtml").unwrap())
+        }
+    }
+}
+
+#[get("/process_new_product/<product_name>/<cost>")]
+fn process_new_product(product_name: &str, cost: f32) { //-> rocket::response::content::RawHtml<String> {
+    println!("\nProduct name: {}", product_name);
+    println!("Cost: {}\n", cost);
+//    rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/auth.xhtml").unwrap())
+}
+
 #[launch]
 fn rocket() -> _ {
-    rocket::build().mount("/", routes![auth, index, process])
+    rocket::build().mount("/", routes![auth, index, process, products, new_product, process_new_product])
 }
 

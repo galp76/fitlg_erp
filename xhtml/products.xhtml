@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Main index</title>
+  <title>Products index</title>
   <style>
     body {
       display: flex;
@@ -23,9 +23,9 @@
     }
 
     button {
-      width: 380px;
-      height: 180px;
-      font-size: 45px;
+      width: 350px;
+      height: 150px;
+      font-size: 35px;
       padding: 10px 20px;
       margin: 10px;
       border: none;
@@ -39,50 +39,62 @@
 <body>
   <div class="container">
     <div>
-        <button onclick="products()">Productos</button>
+        <button onclick="create_product()">Crear producto</button>
     </div>
     <div class="separator"></div>
     <div>
-        <button onclick="purchases()">Compras</button>
+        <button onclick="read_product()">Ver producto</button>
     </div>
     <div class="separator"></div>
     <div>
-        <button onclick="sales()">Ventas</button>
+        <button onclick="update_product()">Actualizar producto</button>
     </div>
     <div class="separator"></div>
     <div>
-        <button onclick="vendors()">Proveedores</button>
+        <button onclick="delete_product()">Eliminar producto</button>
+    </div>
+    <div class="separator"></div>
+    <div>
+        <button onclick="products_table()">Ver lista de productos</button>
     </div>
   </div>
   <script>
-    function products() {
+    function create_product() {
 
-	// Construir el URL con el contador como parametro
-	const url = `products`;
+	// Construir el URL 
+	const url = `new_product`;
 	
 	window.location.href = url;
     }
 
-    function purchases() {
+    function read_product() {
 
-	// Construir el URL con el contador como parametro
-	const url = `purchases`;
+	// Construir el URL 
+	const url = `read_product`;
 	
 	window.location.href = url;
     }
 
-    function sales() {
+    function update_product() {
 
-	// Construir el URL con el contador como parametro
-	const url = `sales`;
+	// Construir el URL 
+	const url = `update_product`;
 	
 	window.location.href = url;
     }
 
-    function vendors() {
+    function delete_product() {
 
-	// Construir el URL con el contador como parametro
-	const url = `vendors`;
+	// Construir el URL 
+	const url = `delete_product`;
+	
+	window.location.href = url;
+    }
+
+    function products_table() {
+
+	// Construir el URL 
+	const url = `products_table`;
 	
 	window.location.href = url;
     }
