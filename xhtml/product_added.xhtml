@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Producto Agregado</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f8ff;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .separator {
+      height: 70px;
+    }
+
+    button {
+      width: 350px;
+      height: 150px;
+      font-size: 35px;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+  <h1>Producto agregado a la lista</h1>
+  <div class="separator"></div>
+    <div>
+        <button onclick="create_another_product()">Crear otro producto</button>
+    </div>
+    <div class="separator"></div>
+    <div>
+        <button onclick="back_to_main_index()">Volver al Menu Inicial</button>
+    </div>
+    <div class="separator"></div>
+  </div>
+  <script>
+    function create_another_product() {
+
+	// Construir el URL 
+	const url = `new_product`;
+	
+	window.location.href = url;
+    }
+
+    function back_to_main_index() {
+
+	// Construir el URL 
+	const url = `index`;
+	
+	window.location.href = url;
+    }
+  </script>
+</body>
+</html>
