@@ -109,8 +109,21 @@ fn sku_already_exists() -> rocket::response::content::RawHtml<String> {
     }
 }
 
+// Log out
+#[get("/log_out")]
+fn log_out() -> rocket::response::content::RawHtml<String> {
+    unsafe {
+        if VALIDATED == true {
+            VALIDATED = false;
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/auth.xhtml").unwrap())
+        } else {
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/auth.xhtml").unwrap())
+        }
+    }
+}
+
 #[launch]
 fn rocket() -> _ {
-    rocket::build().mount("/", routes![auth, index, process, products, new_product, process_new_product, product_added, sku_already_exists])
+    rocket::build().mount("/", routes![auth, index, process, products, new_product, process_new_product, product_added, sku_already_exists, log_out])
 }
 

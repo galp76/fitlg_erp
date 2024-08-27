@@ -53,37 +53,34 @@
     <div>
         <button onclick="vendors()">Proveedores</button>
     </div>
+    <div class="separator"></div>
+    <div>
+        <button onclick="logOut()">Log Out</button>
+    </div>
   </div>
   <script>
     function products() {
-
-	// Construir el URL con el contador como parametro
 	const url = `products`;
-	
 	window.location.href = url;
     }
 
     function purchases() {
-
-	// Construir el URL con el contador como parametro
 	const url = `purchases`;
-	
 	window.location.href = url;
     }
 
     function sales() {
-
-	// Construir el URL con el contador como parametro
 	const url = `sales`;
-	
 	window.location.href = url;
     }
 
     function vendors() {
-
-	// Construir el URL con el contador como parametro
 	const url = `vendors`;
-	
+	window.location.href = url;
+    }
+
+    function logOut() {
+	const url = `log_out`;
 	window.location.href = url;
     }
   </script>
