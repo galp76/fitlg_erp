@@ -20,6 +20,10 @@
           alert('Solo su puede seleccionar un elemento de la lista.');
       } else if (selectedItems.length == 0) {
           alert('Debes seleccionar un elemento de la lista.');
+      } else {
+	  const sku = selectedItems[0];
+	  const url = `sku_read/${encodeURIComponent(sku)}`;
+	  window.location.href = url;
       }
 
     });
