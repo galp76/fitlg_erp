@@ -109,6 +109,19 @@ fn sku_already_exists() -> rocket::response::content::RawHtml<String> {
     }
 }
 
+// Presenta una lista de SKU's para seleccionar uno
+#[get("/read_product")]
+fn read_product() -> rocket::response::content::RawHtml<String> {
+    unsafe {
+        if VALIDATED == true {
+            fitlg_erp::files::sku_list();
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/sku_list.xhtml").unwrap())
+        } else {
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/auth.xhtml").unwrap())
+        }
+    }
+}
+
 // Log out
 #[get("/log_out")]
 fn log_out() -> rocket::response::content::RawHtml<String> {
@@ -124,6 +137,6 @@ fn log_out() -> rocket::response::content::RawHtml<String> {
 
 #[launch]
 fn rocket() -> _ {
-    rocket::build().mount("/", routes![auth, index, process, products, new_product, process_new_product, product_added, sku_already_exists, log_out])
+    rocket::build().mount("/", routes![auth, index, process, products, new_product, process_new_product, product_added, sku_already_exists, read_product, log_out])
 }
 

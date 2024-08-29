@@ -75,3 +75,40 @@
 
   <h1>Selecciona un SKU de la lista</h1>
   <ul id="my-list">
+
+<li><input type="checkbox" id="1" value="1">
+<label for="1">SKU: 1</label><h3>Product: Arepa</h3></li>
+<li><input type="checkbox" id="Hajaja" value="Hajaja">
+<label for="Hajaja">SKU: Hajaja</label><h3>Product: Pan canilla</h3></li>
+<li><input type="checkbox" id="Jzjdjd" value="Jzjdjd">
+<label for="Jzjdjd">SKU: Jzjdjd</label><h3>Product: Malta</h3></li>
+  </ul>
+
+  <button id="show-selected">Mostrar seleccion</button>
+
+  <script>
+    const list = document.getElementById('my-list');
+    const showSelectedButton = document.getElementById('show-selected');
+
+    showSelectedButton.addEventListener('click', () => {
+      const selectedItems = [];
+
+      for (const item of list.querySelectorAll('li')) {
+        const checkbox = item.querySelector('input[type="checkbox"]');
+        if (checkbox.checked) {
+          selectedItems.push(checkbox.value);
+        }
+      }
+
+      if (selectedItems.length > 1) {
+          alert('Solo su puede seleccionar un elemento de la lista.');
+      } else if (selectedItems.length == 0) {
+          alert('Debes seleccionar un elemento de la lista.');
+      }
+
+    });
+  </script>
+
+</body>
+</html>
+
