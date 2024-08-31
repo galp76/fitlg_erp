@@ -2,3 +2,4 @@ Arepa;1;Comia;Masa cocida;pieces;1;2;Ninguno
 Pan canilla;Hajaja;Jdjd;Jjdjd;pieces;5;10;Jsjsjd
 Malta;Jzjdjd;Jdjdjd;Kzjdjd;pieces;125;3625;Hsjsjd
 Chicha;12;Bebidas;Bebida a base de arroz y leche ;liters;10;20;Ninguno
+Sardinas ;123;Pescados;Sardinas ;kilograms;40;60;Ninguno 
