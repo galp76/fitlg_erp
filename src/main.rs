@@ -122,6 +122,48 @@ fn read_product() -> rocket::response::content::RawHtml<String> {
     }
 }
 
+// Muestra la informacion correspondiente al SKU indicado
+#[get("/sku_read/<sku>")]
+fn sku_read(sku: String) -> rocket::response::content::RawHtml<String> {
+    // Buscamoss la linea que contiene el SKU suministrado
+    let products_line: Vec<String> = std::fs::read_to_string("txt/products.txt")
+        .unwrap()
+        .split("\n")
+        .map(|it| it.to_string())
+        .filter(|it| !it.is_empty())
+        .collect();
+
+    let mut sku_line = "".to_string();
+    for line in products_line {
+        let parts: Vec<String> = line
+            .split(";")
+            .map(|it| it.to_string())
+            .collect();
+        if parts[1] == sku {
+            // Construimos el archivo sku_information.xhtml 
+            fitlg_erp::files::clean_file("xhtml/tmp_sku_information.xhtml".to_string());
+            let first_half: String = std::fs::read_to_string("xhtml/sku_information_first_half.xhtml").unwrap();
+            fitlg_erp::files::append_to_file("xhtml/tmp_sku_information.xhtml".to_string(), first_half);
+
+            fitlg_erp::files::append_to_file("xhtml/tmp_sku_information.xhtml".to_string(), format!("<li><h3>Nombre del producto: {}</h3></li>", parts[0]));
+            fitlg_erp::files::append_to_file("xhtml/tmp_sku_information.xhtml".to_string(), format!("<li><h3>Categorias: {}</h3></li>", parts[2]));
+            fitlg_erp::files::append_to_file("xhtml/tmp_sku_information.xhtml".to_string(), format!("<li><h3>Descripcion: {}</h3></li>", parts[3]));
+            fitlg_erp::files::append_to_file("xhtml/tmp_sku_information.xhtml".to_string(), format!("<li><h3>Unidad de medida: {}</h3></li>", parts[4]));
+            fitlg_erp::files::append_to_file("xhtml/tmp_sku_information.xhtml".to_string(), format!("<li><h3>Costo: {}</h3></li>", parts[5]));
+            fitlg_erp::files::append_to_file("xhtml/tmp_sku_information.xhtml".to_string(), format!("<li><h3>Precio de venta: {}</h3></li>", parts[6]));
+            fitlg_erp::files::append_to_file("xhtml/tmp_sku_information.xhtml".to_string(), format!("<li><h3>Descuentos: {}</h3></li>", parts[7]));
+
+            let second_half: String = std::fs::read_to_string("xhtml/sku_information_second_half.xhtml").unwrap();
+            fitlg_erp::files::append_to_file("xhtml/tmp_sku_information.xhtml".to_string(), second_half);
+
+            std::fs::rename("xhtml/tmp_sku_information.xhtml", "xhtml/sku_information.xhtml").unwrap();
+            break;
+        }
+    }
+
+    rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/sku_information.xhtml").unwrap())
+}
+
 // Log out
 #[get("/log_out")]
 fn log_out() -> rocket::response::content::RawHtml<String> {
@@ -137,6 +179,6 @@ fn log_out() -> rocket::response::content::RawHtml<String> {
 
 #[launch]
 fn rocket() -> _ {
-    rocket::build().mount("/", routes![auth, index, process, products, new_product, process_new_product, product_added, sku_already_exists, read_product, log_out])
+    rocket::build().mount("/", routes![auth, index, process, products, new_product, process_new_product, product_added, sku_already_exists, read_product, sku_read, log_out])
 }
 

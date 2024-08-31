@@ -6,6 +6,7 @@ pub mod files {
             .unwrap()
             .split("\n")
             .map(|it| it.to_string())
+            .filter(|it| !it.is_empty())
             .collect();
 
         for line in filename_lines {
@@ -22,7 +23,7 @@ pub mod files {
         false
     }
 
-    fn clean_file(file_name: String) {
+    pub fn clean_file(file_name: String) {
         std::fs::OpenOptions::new()
             .create(true)
             .write(true)
