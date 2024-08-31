@@ -8,18 +8,6 @@ fn auth() -> rocket::response::content::RawHtml<String> {
     rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/auth.xhtml").unwrap())
 }
 
-// Menu principal
-#[get("/index")]
-fn index() -> rocket::response::content::RawHtml<String> {
-    unsafe {
-        if VALIDATED == true {
-            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/index.xhtml").unwrap())
-        } else {
-            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/auth.xhtml").unwrap())
-        }
-    }
-}
-
 // Procesa la contrase#a
 #[get("/process/<password>")]
 fn process(password: &str) -> rocket::response::Redirect {
@@ -33,6 +21,20 @@ fn process(password: &str) -> rocket::response::Redirect {
         rocket::response::Redirect::to(uri!(auth))
     }
 }
+
+// Menu principal
+#[get("/index")]
+fn index() -> rocket::response::content::RawHtml<String> {
+    unsafe {
+        if VALIDATED == true {
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/index.xhtml").unwrap())
+        } else {
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/auth.xhtml").unwrap())
+        }
+    }
+}
+
+// OJO AQUI EMPIEZAN LAS FUNCIONES DE PRODUCTOS
 
 // Pagina principal de productos
 #[get("/products")]
@@ -109,7 +111,7 @@ fn sku_already_exists() -> rocket::response::content::RawHtml<String> {
     }
 }
 
-// Presenta una lista de SKU's para seleccionar uno
+// Presenta una lista de SKU's para seleccionar uno (para la opcion Ver Producto)
 #[get("/read_product")]
 fn read_product() -> rocket::response::content::RawHtml<String> {
     unsafe {
@@ -165,6 +167,18 @@ fn sku_read(sku: String) -> rocket::response::content::RawHtml<String> {
     rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/sku_information.xhtml").unwrap())
 }
 
+#[get("/delete_product")]
+fn delete_product() -> rocket::response::content::RawHtml<String> {
+    unsafe {
+        if VALIDATED == true {
+//            fitlg_erp::files::sku_list_delete();
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/sku_list_delete.xhtml").unwrap())
+        } else {
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/auth.xhtml").unwrap())
+        }
+    }
+}
+
 // Log out
 #[get("/log_out")]
 fn log_out() -> rocket::response::content::RawHtml<String> {
@@ -180,6 +194,6 @@ fn log_out() -> rocket::response::content::RawHtml<String> {
 
 #[launch]
 fn rocket() -> _ {
-    rocket::build().mount("/", routes![auth, index, process, products, new_product, process_new_product, product_added, sku_already_exists, read_product, sku_read, log_out])
+    rocket::build().mount("/", routes![auth, index, process, products, new_product, process_new_product, product_added, sku_already_exists, read_product, sku_read, delete_product, log_out])
 }
 
