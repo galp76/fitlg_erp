@@ -43,9 +43,9 @@ pub mod files {
     }
 
     pub fn sku_list() {
-        clean_file("xhtml/tmp_sku_list.html".to_string());
-        let first_half: String = std::fs::read_to_string("xhtml/sku_list_first_half.html").unwrap();
-        append_to_file("xhtml/tmp_sku_list.html".to_string(), first_half);
+        clean_file("xhtml/products/tmp_sku_list.html".to_string());
+        let first_half: String = std::fs::read_to_string("xhtml/products/sku_list_first_half.html").unwrap();
+        append_to_file("xhtml/products/tmp_sku_list.html".to_string(), first_half);
         let product_lines: Vec<String> = std::fs::read_to_string("txt/products.txt")
             .unwrap()
             .split("\n")
@@ -60,20 +60,20 @@ pub mod files {
             let product = parts[0].clone();
             let sku = parts[1].clone();
             let mut sku_html_line = format!("<li><input type=\"checkbox\" id=\"{sku}\" value=\"{sku}\">");
-            append_to_file("xhtml/tmp_sku_list.html".to_string(), sku_html_line);
+            append_to_file("xhtml/products/tmp_sku_list.html".to_string(), sku_html_line);
             sku_html_line = format!("<label for=\"{sku}\">SKU: {sku}</label><h3>Product: {product}</h3></li>");
-            append_to_file("xhtml/tmp_sku_list.html".to_string(), sku_html_line);
+            append_to_file("xhtml/products/tmp_sku_list.html".to_string(), sku_html_line);
         }
-        let second_half: String = std::fs::read_to_string("xhtml/sku_list_second_half.html").unwrap();
-        append_to_file("xhtml/tmp_sku_list.html".to_string(), second_half);
+        let second_half: String = std::fs::read_to_string("xhtml/products/sku_list_second_half.html").unwrap();
+        append_to_file("xhtml/products/tmp_sku_list.html".to_string(), second_half);
 
-        std::fs::rename("xhtml/tmp_sku_list.html", "xhtml/sku_list.xhtml").unwrap();
+        std::fs::rename("xhtml/products/tmp_sku_list.html", "xhtml/products/sku_list.xhtml").unwrap();
     }
 
     pub fn sku_list_delete() {
-        clean_file("xhtml/tmp_sku_list_delete.xhtml".to_string());
-        let first_half: String = std::fs::read_to_string("xhtml/sku_list_delete_first_half.xhtml").unwrap();
-        append_to_file("xhtml/tmp_sku_list_delete.xhtml".to_string(), first_half);
+        clean_file("xhtml/products/tmp_sku_list_delete.xhtml".to_string());
+        let first_half: String = std::fs::read_to_string("xhtml/products/sku_list_delete_first_half.xhtml").unwrap();
+        append_to_file("xhtml/products/tmp_sku_list_delete.xhtml".to_string(), first_half);
         let product_lines: Vec<String> = std::fs::read_to_string("txt/products.txt")
             .unwrap()
             .split("\n")
@@ -88,13 +88,13 @@ pub mod files {
             let product = parts[0].clone();
             let sku = parts[1].clone();
             let mut sku_html_line = format!("<li><input type=\"checkbox\" id=\"{sku}\" value=\"{sku}\">");
-            append_to_file("xhtml/tmp_sku_list_delete.xhtml".to_string(), sku_html_line);
+            append_to_file("xhtml/products/tmp_sku_list_delete.xhtml".to_string(), sku_html_line);
             sku_html_line = format!("<label for=\"{sku}\">SKU: {sku}</label><h3>Product: {product}</h3></li>");
-            append_to_file("xhtml/tmp_sku_list_delete.xhtml".to_string(), sku_html_line);
+            append_to_file("xhtml/products/tmp_sku_list_delete.xhtml".to_string(), sku_html_line);
         }
-        let second_half: String = std::fs::read_to_string("xhtml/sku_list_delete_second_half.xhtml").unwrap();
-        append_to_file("xhtml/tmp_sku_list_delete.xhtml".to_string(), second_half);
+        let second_half: String = std::fs::read_to_string("xhtml/products/sku_list_delete_second_half.xhtml").unwrap();
+        append_to_file("xhtml/products/tmp_sku_list_delete.xhtml".to_string(), second_half);
 
-        std::fs::rename("xhtml/tmp_sku_list_delete.xhtml", "xhtml/sku_list_delete.xhtml").unwrap();
+        std::fs::rename("xhtml/products/tmp_sku_list_delete.xhtml", "xhtml/products/sku_list_delete.xhtml").unwrap();
     }
 }

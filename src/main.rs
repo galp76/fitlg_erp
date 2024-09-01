@@ -41,7 +41,7 @@ fn index() -> rocket::response::content::RawHtml<String> {
 fn products() -> rocket::response::content::RawHtml<String> {
     unsafe {
         if VALIDATED == true {
-            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/products.xhtml").unwrap())
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/products/products.xhtml").unwrap())
         } else {
             rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/auth.xhtml").unwrap())
         }
@@ -53,7 +53,7 @@ fn products() -> rocket::response::content::RawHtml<String> {
 fn new_product() -> rocket::response::content::RawHtml<String> {
     unsafe {
         if VALIDATED == true {
-            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/new_product.xhtml").unwrap())
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/products/new_product.xhtml").unwrap())
         } else {
             rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/auth.xhtml").unwrap())
         }
@@ -92,7 +92,7 @@ fn process_new_product(product_name: &str, sku: &str, categories: &str, descript
 fn product_added() -> rocket::response::content::RawHtml<String> {
     unsafe {
         if VALIDATED == true {
-            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/product_added.xhtml").unwrap())
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/products/product_added.xhtml").unwrap())
         } else {
             rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/auth.xhtml").unwrap())
         }
@@ -104,7 +104,7 @@ fn product_added() -> rocket::response::content::RawHtml<String> {
 fn sku_already_exists() -> rocket::response::content::RawHtml<String> {
     unsafe {
         if VALIDATED == true {
-            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/sku_already_exists.xhtml").unwrap())
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/products/sku_already_exists.xhtml").unwrap())
         } else {
             rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/auth.xhtml").unwrap())
         }
@@ -117,7 +117,7 @@ fn read_product() -> rocket::response::content::RawHtml<String> {
     unsafe {
         if VALIDATED == true {
             fitlg_erp::files::sku_list();
-            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/sku_list.xhtml").unwrap())
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/products/sku_list.xhtml").unwrap())
         } else {
             rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/auth.xhtml").unwrap())
         }
@@ -144,28 +144,28 @@ fn sku_read(sku: String) -> rocket::response::content::RawHtml<String> {
                     .collect();
                 if parts[1] == sku {
                     // Construimos el archivo sku_information.xhtml 
-                    fitlg_erp::files::clean_file("xhtml/tmp_sku_information.xhtml".to_string());
-                    let first_half: String = std::fs::read_to_string("xhtml/sku_information_first_half.xhtml").unwrap();
-                    fitlg_erp::files::append_to_file("xhtml/tmp_sku_information.xhtml".to_string(), first_half);
+                    fitlg_erp::files::clean_file("xhtml/products/tmp_sku_information.xhtml".to_string());
+                    let first_half: String = std::fs::read_to_string("xhtml/products/sku_information_first_half.xhtml").unwrap();
+                    fitlg_erp::files::append_to_file("xhtml/products/tmp_sku_information.xhtml".to_string(), first_half);
 
-                    fitlg_erp::files::append_to_file("xhtml/tmp_sku_information.xhtml".to_string(), format!("<li><h3>Nombre del producto: {}</h3></li>", parts[0]));
-                    fitlg_erp::files::append_to_file("xhtml/tmp_sku_information.xhtml".to_string(), format!("<li><h3>SKU: {}</h3></li>", parts[1]));
-                    fitlg_erp::files::append_to_file("xhtml/tmp_sku_information.xhtml".to_string(), format!("<li><h3>Categorias: {}</h3></li>", parts[2]));
-                    fitlg_erp::files::append_to_file("xhtml/tmp_sku_information.xhtml".to_string(), format!("<li><h3>Descripcion: {}</h3></li>", parts[3]));
-                    fitlg_erp::files::append_to_file("xhtml/tmp_sku_information.xhtml".to_string(), format!("<li><h3>Unidad de medida: {}</h3></li>", parts[4]));
-                    fitlg_erp::files::append_to_file("xhtml/tmp_sku_information.xhtml".to_string(), format!("<li><h3>Costo: {}</h3></li>", parts[5]));
-                    fitlg_erp::files::append_to_file("xhtml/tmp_sku_information.xhtml".to_string(), format!("<li><h3>Precio de venta: {}</h3></li>", parts[6]));
-                    fitlg_erp::files::append_to_file("xhtml/tmp_sku_information.xhtml".to_string(), format!("<li><h3>Descuentos: {}</h3></li>", parts[7]));
+                    fitlg_erp::files::append_to_file("xhtml/products/tmp_sku_information.xhtml".to_string(), format!("<li><h3>Nombre del producto: {}</h3></li>", parts[0]));
+                    fitlg_erp::files::append_to_file("xhtml/products/tmp_sku_information.xhtml".to_string(), format!("<li><h3>SKU: {}</h3></li>", parts[1]));
+                    fitlg_erp::files::append_to_file("xhtml/products/tmp_sku_information.xhtml".to_string(), format!("<li><h3>Categorias: {}</h3></li>", parts[2]));
+                    fitlg_erp::files::append_to_file("xhtml/products/tmp_sku_information.xhtml".to_string(), format!("<li><h3>Descripcion: {}</h3></li>", parts[3]));
+                    fitlg_erp::files::append_to_file("xhtml/products/tmp_sku_information.xhtml".to_string(), format!("<li><h3>Unidad de medida: {}</h3></li>", parts[4]));
+                    fitlg_erp::files::append_to_file("xhtml/products/tmp_sku_information.xhtml".to_string(), format!("<li><h3>Costo: {}</h3></li>", parts[5]));
+                    fitlg_erp::files::append_to_file("xhtml/products/tmp_sku_information.xhtml".to_string(), format!("<li><h3>Precio de venta: {}</h3></li>", parts[6]));
+                    fitlg_erp::files::append_to_file("xhtml/products/tmp_sku_information.xhtml".to_string(), format!("<li><h3>Descuentos: {}</h3></li>", parts[7]));
 
-                    let second_half: String = std::fs::read_to_string("xhtml/sku_information_second_half.xhtml").unwrap();
-                    fitlg_erp::files::append_to_file("xhtml/tmp_sku_information.xhtml".to_string(), second_half);
+                    let second_half: String = std::fs::read_to_string("xhtml/products/sku_information_second_half.xhtml").unwrap();
+                    fitlg_erp::files::append_to_file("xhtml/products/tmp_sku_information.xhtml".to_string(), second_half);
 
-                    std::fs::rename("xhtml/tmp_sku_information.xhtml", "xhtml/sku_information.xhtml").unwrap();
+                    std::fs::rename("xhtml/products/tmp_sku_information.xhtml", "xhtml/products/sku_information.xhtml").unwrap();
                     break;
                 }
             }
 
-            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/sku_information.xhtml").unwrap())
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/products/sku_information.xhtml").unwrap())
         } else {
             rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/auth.xhtml").unwrap())
         }
@@ -178,7 +178,7 @@ fn delete_product() -> rocket::response::content::RawHtml<String> {
     unsafe {
         if VALIDATED == true {
             fitlg_erp::files::sku_list_delete();
-            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/sku_list_delete.xhtml").unwrap())
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/products/sku_list_delete.xhtml").unwrap())
         } else {
             rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/auth.xhtml").unwrap())
         }
@@ -225,7 +225,7 @@ fn sku_delete(sku: String) -> rocket::response::Redirect {
 fn product_deleted() -> rocket::response::content::RawHtml<String> {
     unsafe {
         if VALIDATED == true {
-            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/product_deleted.xhtml").unwrap())
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/products/product_deleted.xhtml").unwrap())
         } else {
             rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/auth.xhtml").unwrap())
         }
