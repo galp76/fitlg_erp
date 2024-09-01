@@ -69,4 +69,32 @@ pub mod files {
 
         std::fs::rename("xhtml/tmp_sku_list.html", "xhtml/sku_list.xhtml").unwrap();
     }
+
+    pub fn sku_list_delete() {
+        clean_file("xhtml/tmp_sku_list_delete.xhtml".to_string());
+        let first_half: String = std::fs::read_to_string("xhtml/sku_list_delete_first_half.xhtml").unwrap();
+        append_to_file("xhtml/tmp_sku_list_delete.xhtml".to_string(), first_half);
+        let product_lines: Vec<String> = std::fs::read_to_string("txt/products.txt")
+            .unwrap()
+            .split("\n")
+            .filter(|it| !it.is_empty())
+            .map(|it| it.to_string())
+            .collect();
+        for line in product_lines {
+            let parts: Vec<String> = line
+                .split(";")
+                .map(|it| it.to_string())
+                .collect();
+            let product = parts[0].clone();
+            let sku = parts[1].clone();
+            let mut sku_html_line = format!("<li><input type=\"checkbox\" id=\"{sku}\" value=\"{sku}\">");
+            append_to_file("xhtml/tmp_sku_list_delete.xhtml".to_string(), sku_html_line);
+            sku_html_line = format!("<label for=\"{sku}\">SKU: {sku}</label><h3>Product: {product}</h3></li>");
+            append_to_file("xhtml/tmp_sku_list_delete.xhtml".to_string(), sku_html_line);
+        }
+        let second_half: String = std::fs::read_to_string("xhtml/sku_list_delete_second_half.xhtml").unwrap();
+        append_to_file("xhtml/tmp_sku_list_delete.xhtml".to_string(), second_half);
+
+        std::fs::rename("xhtml/tmp_sku_list_delete.xhtml", "xhtml/sku_list_delete.xhtml").unwrap();
+    }
 }

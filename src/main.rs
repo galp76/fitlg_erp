@@ -60,7 +60,7 @@ fn new_product() -> rocket::response::content::RawHtml<String> {
     }
 }
 
-// Procesa el formulario paara nuevo producto
+// Procesa el formulario para nuevo producto
 #[get("/process_new_product/<product_name>/<sku>/<categories>/<description>/<unit_of_measure>/<cost>/<retail>/<discounts>")]
 fn process_new_product(product_name: &str, sku: &str, categories: &str, description: &str, unit_of_measure: &str, cost: &str, retail: &str, discounts: &str) -> rocket::response::Redirect {
     unsafe {
@@ -135,7 +135,6 @@ fn sku_read(sku: String) -> rocket::response::content::RawHtml<String> {
         .filter(|it| !it.is_empty())
         .collect();
 
-    let mut sku_line = "".to_string();
     for line in products_line {
         let parts: Vec<String> = line
             .split(";")
@@ -167,12 +166,54 @@ fn sku_read(sku: String) -> rocket::response::content::RawHtml<String> {
     rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/sku_information.xhtml").unwrap())
 }
 
+// Presenta una lista de SKU's para seleccionar uno (opcion Borrar Producto)
 #[get("/delete_product")]
 fn delete_product() -> rocket::response::content::RawHtml<String> {
     unsafe {
         if VALIDATED == true {
-//            fitlg_erp::files::sku_list_delete();
+            fitlg_erp::files::sku_list_delete();
             rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/sku_list_delete.xhtml").unwrap())
+        } else {
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/auth.xhtml").unwrap())
+        }
+    }
+}
+
+// Elimina de txt/products.txt el SKU indicado
+#[get("/sku_delete/<sku>")]
+fn sku_delete(sku: String) -> rocket::response::Redirect {
+    // Creamos un archivo temporal para guardar todos los SKU's excepto el que vamos a eliminar
+    fitlg_erp::files::clean_file("txt/tmp_products.txt".to_string());
+
+    // Insertamos todos los SKU's excepto el indicado para eliminar
+    let products_line: Vec<String> = std::fs::read_to_string("txt/products.txt")
+        .unwrap()
+        .split("\n")
+        .map(|it| it.to_string())
+        .filter(|it| !it.is_empty())
+        .collect();
+
+    for line in products_line {
+        let parts: Vec<String> = line
+            .split(";")
+            .map(|it| it.to_string())
+            .collect();
+        if parts[1] != sku {
+            fitlg_erp::files::append_to_file("txt/tmp_products.txt".to_string(), line);
+        }
+    }
+    
+    std::fs::rename("txt/tmp_products.txt", "txt/products.txt").unwrap();
+
+    rocket::response::Redirect::to(uri!(product_deleted))
+}
+
+// Notifica sobre producto eliminado 
+#[get("/product_deleted")]
+fn product_deleted() -> rocket::response::content::RawHtml<String> {
+    unsafe {
+        if VALIDATED == true {
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/product_deleted.xhtml").unwrap())
         } else {
             rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/auth.xhtml").unwrap())
         }
@@ -194,6 +235,6 @@ fn log_out() -> rocket::response::content::RawHtml<String> {
 
 #[launch]
 fn rocket() -> _ {
-    rocket::build().mount("/", routes![auth, index, process, products, new_product, process_new_product, product_added, sku_already_exists, read_product, sku_read, delete_product, log_out])
+    rocket::build().mount("/", routes![auth, index, process, products, new_product, process_new_product, product_added, sku_already_exists, read_product, sku_read, delete_product, sku_delete, product_deleted, log_out])
 }
 

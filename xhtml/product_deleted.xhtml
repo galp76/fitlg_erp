@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Producto Eliminado</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f8ff;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .separator {
+      height: 70px;
+    }
+
+    button {
+      width: 350px;
+      height: 150px;
+      font-size: 35px;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+  <h1>Producto agregado a la lista</h1>
+  <div class="separator"></div>
+    <div>
+      <form action="/delete_product" method="GET">
+        <button>Eliminar otro producto</button>
+      </form>
+    </div>
+    <div class="separator"></div>
+    <div>
+      <form action="/index" method="GET">
+        <button>Volver al Menu Inicial</button>
+      </form>
+    </div>
+    <div class="separator"></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+  </ul>
+
+  <button id="show-selected">Borrar seleccion</button>
+
+  <script>
+    const list = document.getElementById('my-list');
+    const showSelectedButton = document.getElementById('show-selected');
+
+    showSelectedButton.addEventListener('click', () => {
+      const selectedItems = [];
+
+      for (const item of list.querySelectorAll('li')) {
+        const checkbox = item.querySelector('input[type="checkbox"]');
+        if (checkbox.checked) {
+          selectedItems.push(checkbox.value);
+        }
+      }
+
+      if (selectedItems.length > 1) {
+          alert('Solo se puede seleccionar un elemento de la lista.');
+      } else if (selectedItems.length == 0) {
+          alert('Debes seleccionar un elemento de la lista.');
+      } else {
+	  const sku = selectedItems[0];
+	  const url = `sku_delete/${encodeURIComponent(sku)}`;
+	  window.location.href = url;
+      }
+
+    });
+  </script>
+
+</body>
+</html>
+
