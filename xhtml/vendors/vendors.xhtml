@@ -43,19 +43,19 @@
 <body>
   <div class="container">
     <div>
-        <button onclick="create_product()">Crear producto</button>
+        <button onclick="new_vendor()">Nuevo proveedor</button>
     </div>
     <div class="separator"></div>
     <div>
-        <button onclick="read_product()">Ver producto</button>
+        <button onclick="read_vendor()">Ver proveedor</button>
     </div>
     <div class="separator"></div>
     <div>
-        <button onclick="update_product()">Actualizar producto</button>
+        <button onclick="update_vendor()">Actualizar proveedor</button>
     </div>
     <div class="separator"></div>
     <div>
-        <button onclick="delete_product()">Eliminar producto</button>
+        <button onclick="delete_vendor()">Eliminar proveedor</button>
     </div>
     <div class="separator"></div>
     <div>
@@ -63,34 +63,34 @@
     </div>
   </div>
   <script>
-    function create_product() {
+    function new_vendor() {
 
 	// Construir el URL 
-	const url = `new_product`;
+	const url = `new_vendor`;
 	
 	window.location.href = url;
     }
 
-    function read_product() {
+    function read_vendor() {
 
 	// Construir el URL 
-	const url = `read_product`;
+	const url = `read_vendor`;
 	
 	window.location.href = url;
     }
 
-    function update_product() {
+    function update_vendor() {
 
 	// Construir el URL 
-	const url = `update_product`;
+	const url = `update_vendor`;
 	
 	window.location.href = url;
     }
 
-    function delete_product() {
+    function delete_vendor() {
 
 	// Construir el URL 
-	const url = `delete_product`;
+	const url = `delete_vendor`;
 	
 	window.location.href = url;
     }

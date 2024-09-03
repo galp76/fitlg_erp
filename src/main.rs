@@ -34,7 +34,9 @@ fn index() -> rocket::response::content::RawHtml<String> {
     }
 }
 
+
 // OJO AQUI EMPIEZAN LAS FUNCIONES DE PRODUCTOS
+
 
 // Pagina principal de productos
 #[get("/products")]
@@ -232,6 +234,22 @@ fn product_deleted() -> rocket::response::content::RawHtml<String> {
     }
 }
 
+
+// OJO AQUI EEMPIEZAN LAS FUNCIONES DE PROVEEDORES
+
+
+// Pagina principal de proveedores
+#[get("/vendors")]
+fn vendors() -> rocket::response::content::RawHtml<String> {
+    unsafe {
+        if VALIDATED == true {
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/vendors/vendors.xhtml").unwrap())
+        } else {
+            rocket::response::content::RawHtml(std::fs::read_to_string("xhtml/auth.xhtml").unwrap())
+        }
+    }
+}
+
 // Log out
 #[get("/log_out")]
 fn log_out() -> rocket::response::content::RawHtml<String> {
@@ -247,6 +265,6 @@ fn log_out() -> rocket::response::content::RawHtml<String> {
 
 #[launch]
 fn rocket() -> _ {
-    rocket::build().mount("/", routes![auth, index, process, products, new_product, process_new_product, product_added, sku_already_exists, read_product, sku_read, delete_product, sku_delete, product_deleted, log_out])
+    rocket::build().mount("/", routes![auth, index, process, products, new_product, process_new_product, product_added, sku_already_exists, read_product, sku_read, delete_product, sku_delete, product_deleted, vendors, log_out])
 }
 
